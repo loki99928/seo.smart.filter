@@ -1,9 +1,9 @@
 <?php
 
-namespace Atmosfera\SeoFilter\Service;
+namespace CustomAI\SeoFilter\Service;
 
-use Atmosfera\SeoFilter\Dto\SeoRule;
-use Atmosfera\SeoFilter\Repository\RuleRepository;
+use CustomAI\SeoFilter\Dto\SeoRule;
+use CustomAI\SeoFilter\Repository\RuleRepository;
 
 final class SeoApplicator
 {
@@ -214,10 +214,10 @@ final class SeoApplicator
             if ($code === 'PROPERTIES' || is_array($value)) {
                 continue;
             }
-            $replace['#ATMOSFERA_SEOFILTER_' . $code . '#'] = Sanitizer::plainText((string)$value);
-            $replace['#~ATMOSFERA_SEOFILTER_' . $code . '#'] = Sanitizer::html((string)$value);
-            $search[] = '#ATMOSFERA_SEOFILTER_' . $code . '#';
-            $search[] = '#~ATMOSFERA_SEOFILTER_' . $code . '#';
+            $replace['#CUSTOMAI_SEOFILTER_' . $code . '#'] = Sanitizer::plainText((string)$value);
+            $replace['#~CUSTOMAI_SEOFILTER_' . $code . '#'] = Sanitizer::html((string)$value);
+            $search[] = '#CUSTOMAI_SEOFILTER_' . $code . '#';
+            $search[] = '#~CUSTOMAI_SEOFILTER_' . $code . '#';
         }
 
         foreach ($rule->clearedProperties as $code => $value) {
@@ -227,16 +227,16 @@ final class SeoApplicator
             $plain = is_array($value)
                 ? Sanitizer::propertyValue($value)
                 : (string)$value;
-            $replace['#ATMOSFERA_SEOFILTER_PROPERTY_' . $code . '#'] = Sanitizer::plainText($plain);
-            $replace['#~ATMOSFERA_SEOFILTER_PROPERTY_' . $code . '#'] = Sanitizer::html($plain);
-            $search[] = '#ATMOSFERA_SEOFILTER_PROPERTY_' . $code . '#';
-            $search[] = '#~ATMOSFERA_SEOFILTER_PROPERTY_' . $code . '#';
+            $replace['#CUSTOMAI_SEOFILTER_PROPERTY_' . $code . '#'] = Sanitizer::plainText($plain);
+            $replace['#~CUSTOMAI_SEOFILTER_PROPERTY_' . $code . '#'] = Sanitizer::html($plain);
+            $search[] = '#CUSTOMAI_SEOFILTER_PROPERTY_' . $code . '#';
+            $search[] = '#~CUSTOMAI_SEOFILTER_PROPERTY_' . $code . '#';
         }
 
         if ($search !== []) {
             $content = str_replace($search, $replace, $content);
         }
 
-        return preg_replace('/#ATMOSFERA_SEOFILTER_[^#]+#/', '', $content) ?? $content;
+        return preg_replace('/#CUSTOMAI_SEOFILTER_[^#]+#/', '', $content) ?? $content;
     }
 }

@@ -1,14 +1,14 @@
 <?php
 
-namespace Atmosfera\SeoFilter;
+namespace CustomAI\SeoFilter;
 
-use Atmosfera\SeoFilter\Schema\IblockInstaller;
-use Atmosfera\SeoFilter\Service\FilterUrlMapper;
-use Atmosfera\SeoFilter\Service\LanguageConfig;
-use Atmosfera\SeoFilter\Service\MigrationService;
-use Atmosfera\SeoFilter\Service\SeoApplicator;
-use Atmosfera\SeoFilter\Service\SitemapService;
-use Atmosfera\SeoFilter\Service\UrlRewriter;
+use CustomAI\SeoFilter\Schema\IblockInstaller;
+use CustomAI\SeoFilter\Service\FilterUrlMapper;
+use CustomAI\SeoFilter\Service\LanguageConfig;
+use CustomAI\SeoFilter\Service\MigrationService;
+use CustomAI\SeoFilter\Service\SeoApplicator;
+use CustomAI\SeoFilter\Service\SitemapService;
+use CustomAI\SeoFilter\Service\UrlRewriter;
 
 /**
  * Public facade for templates / result_modifier.

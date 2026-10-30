@@ -1,6 +1,6 @@
 <?php
 
-namespace Atmosfera\SeoFilter\Dto;
+namespace CustomAI\SeoFilter\Dto;
 
 final class SeoRule
 {

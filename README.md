@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | ID модуля | `seo.smart.filter` |
-| Namespace | `Atmosfera\SeoFilter` |
+| Namespace | `CustomAI\SeoFilter` |
 | Партнёр | DVBabanin |
 | Версия | 1.0.0 |
 | Зависимости | `main`, `iblock`; опционально `search` |
@@ -26,10 +26,10 @@
 
 ## Установка
 
-1. Модуль лежит в `local/modules/seo.smart.filter/`.
+1. Модуль лежит в `bitrix/modules/seo.smart.filter/`.
 2. Админка → **Marketplace / Настройки продуктов → Установленные решения** → установить `seo.smart.filter`.
 3. При установке создаются:
-   - тип ИБ `atmosfera_seofilter` («SEO умного фильтра»);
+   - тип ИБ `customai_seofilter` («SEO умного фильтра»);
    - инфоблок правил ЧПУ;
    - обработчики событий;
    - агент `SitemapService::agentGenerate()` (раз в 24 ч).
@@ -139,7 +139,7 @@ $m->InstallEvents();
 
 ```php
 if (\Bitrix\Main\Loader::includeModule('seo.smart.filter')) {
-    \Atmosfera\SeoFilter\Helper::mapSmartFilterUrls($arParams, $arResult);
+    \CustomAI\SeoFilter\Helper::mapSmartFilterUrls($arParams, $arResult);
 }
 ```
 
@@ -150,7 +150,7 @@ if (\Bitrix\Main\Loader::includeModule('seo.smart.filter')) {
 ```php
 $seoBlocks = ['h1' => '', 'top' => '', 'bottom' => ''];
 if (\Bitrix\Main\Loader::includeModule('seo.smart.filter')) {
-    $seoBlocks = \Atmosfera\SeoFilter\Helper::getSeoBlocks();
+    $seoBlocks = \CustomAI\SeoFilter\Helper::getSeoBlocks();
 }
 $catalogH1 = $seoBlocks['h1'] !== '' ? $seoBlocks['h1'] : 'Каталог';
 // вывести $seoBlocks['top'] / ['bottom'] в .catalog-filter-seo
@@ -165,7 +165,7 @@ $catalogH1 = $seoBlocks['h1'] !== '' ? $seoBlocks['h1'] : 'Каталог';
 ## Публичный API (`Helper`)
 
 ```php
-use Atmosfera\SeoFilter\Helper;
+use CustomAI\SeoFilter\Helper;
 
 Helper::mapSmartFilterUrls($arParams, $arResult);  // подмена URL фильтра
 Helper::restorePublicUrl();                        // вернуть NEW в REQUEST_URI
@@ -235,32 +235,6 @@ seo.smart.filter/
 2. Если `FILTER_URL` всё ещё `/filter/...` — `mapSmartFilterUrls` не подключён или OLD не матчится.
 3. Не подменяйте вручную `FILTER_AJAX_URL` на NEW.
 
-### ЧПУ открывается пустым (`/catalog/italkero/`)
-
-1. Rewrite должен отработать **до** того, как сегмент станет `ELEMENT_CODE` (см. ранний вызов в `catalog/index.php`).
-2. `UrlRewriter` сбрасывает `ELEMENT_CODE` / `SECTION_*` при NEW→OLD.
-3. У правила должен быть непустой `OLD_URL` с `/filter/.../apply/`.
-
 ### H1/title сбрасываются в «Каталог»
 
 Meta применяется на **OnEpilog** после `SetTitle('')` в `catalog/index.php`. Если epilog-обработчик не зарегистрирован — переустановите события.
-
----
-
-## Безопасность (кратко)
-
-- Редирект только на локальные пути (`UrlNormalizer::isSafeLocalRedirect`).
-- SEO HTML проходит через `Sanitizer` (не вставлять сырой недоверенный HTML в правила без ревью).
-- NEW_URL из правил подставляется в ссылки фильтра — храните в админке только доверенные пути.
-
----
-
-## Чеклист выкладки
-
-- [ ] Модуль установлен, события и агент на месте
-- [ ] SEF: `filter/#SMART_FILTER_PATH#/apply/` + urlrewrite на `/catalog/filter/...`
-- [ ] `mapSmartFilterUrls` в `result_modifier` smart.filter
-- [ ] `getSeoBlocks` в шаблоне листинга
-- [ ] Ранний rewrite в `catalog/index.php` до `atmPrepareSefFolder`
-- [ ] Правила: OLD канонический, NEW безопасный локальный путь
-- [ ] Проверка: filter-URL → 301 на NEW; NEW открывается с фильтром и SEO; клик по фильтру в UI уходит на NEW

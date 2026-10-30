@@ -1,8 +1,8 @@
 <?php
 
-namespace Atmosfera\SeoFilter\Service;
+namespace CustomAI\SeoFilter\Service;
 
-use Atmosfera\SeoFilter\Schema\IblockInstaller;
+use CustomAI\SeoFilter\Schema\IblockInstaller;
 use Bitrix\Main\Loader;
 
 final class MigrationService

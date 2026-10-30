@@ -18,18 +18,18 @@ if ($step < 2) {
         <p>
             <label>
                 <input type="checkbox" name="savedata" value="Y" checked>
-                <?= htmlspecialcharsbx(Loc::getMessage('ATMOSFERA_SEOFILTER_SAVE_DATA')) ?>
+                <?= htmlspecialcharsbx(Loc::getMessage('CUSTOMAI_SEOFILTER_SAVE_DATA')) ?>
             </label>
         </p>
-        <input type="submit" name="inst" value="<?= htmlspecialcharsbx(Loc::getMessage('ATMOSFERA_SEOFILTER_UNINSTALL_TITLE')) ?>">
+        <input type="submit" name="inst" value="<?= htmlspecialcharsbx(Loc::getMessage('CUSTOMAI_SEOFILTER_UNINSTALL_TITLE')) ?>">
     </form>
     <?php
     return;
 }
 
-echo \CAdminMessage::ShowNote(Loc::getMessage('ATMOSFERA_SEOFILTER_UNINSTALL_OK'));
+echo \CAdminMessage::ShowNote(Loc::getMessage('CUSTOMAI_SEOFILTER_UNINSTALL_OK'));
 ?>
 <form action="<?= htmlspecialcharsbx($APPLICATION->GetCurPage()) ?>">
     <input type="hidden" name="lang" value="<?= LANGUAGE_ID ?>">
-    <input type="submit" name="" value="<?= htmlspecialcharsbx(Loc::getMessage('ATMOSFERA_SEOFILTER_MOD_BACK')) ?>">
+    <input type="submit" name="" value="<?= htmlspecialcharsbx(Loc::getMessage('CUSTOMAI_SEOFILTER_MOD_BACK')) ?>">
 </form>

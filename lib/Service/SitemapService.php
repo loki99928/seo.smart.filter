@@ -1,8 +1,8 @@
 <?php
 
-namespace Atmosfera\SeoFilter\Service;
+namespace CustomAI\SeoFilter\Service;
 
-use Atmosfera\SeoFilter\Schema\IblockInstaller;
+use CustomAI\SeoFilter\Schema\IblockInstaller;
 use Bitrix\Main\Config\Option;
 use Bitrix\Main\Loader;
 
@@ -10,7 +10,7 @@ final class SitemapService
 {
     public const OPTION_DOMAIN = 'sitemap_domain';
     public const OPTION_FILENAME = 'sitemap_filename';
-    public const DEFAULT_FILENAME = 'sitemap-atmosfera-seofilter.xml';
+    public const DEFAULT_FILENAME = 'sitemap-customai-seofilter.xml';
 
     /**
      * @return list<array{loc:string, lastmod:?string}>
@@ -116,7 +116,7 @@ final class SitemapService
 
     public function ensureAgent(): void
     {
-        $name = '\\Atmosfera\\SeoFilter\\Service\\SitemapService::agentGenerate();';
+        $name = '\\CustomAI\\SeoFilter\\Service\\SitemapService::agentGenerate();';
         $exists = \CAgent::GetList([], [
             'MODULE_ID' => 'seo.smart.filter',
             'NAME' => $name,
@@ -155,7 +155,7 @@ final class SitemapService
             (new self())->generate();
         }
 
-        return '\\Atmosfera\\SeoFilter\\Service\\SitemapService::agentGenerate();';
+        return '\\CustomAI\\SeoFilter\\Service\\SitemapService::agentGenerate();';
     }
 
     /**

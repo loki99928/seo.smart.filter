@@ -1,8 +1,8 @@
 <?php
 
-namespace Atmosfera\SeoFilter\Service;
+namespace CustomAI\SeoFilter\Service;
 
-use Atmosfera\SeoFilter\Repository\RuleRepository;
+use CustomAI\SeoFilter\Repository\RuleRepository;
 
 final class RedirectService
 {

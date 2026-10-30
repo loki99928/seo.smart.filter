@@ -4,17 +4,17 @@
 
 use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
-use Atmosfera\SeoFilter\Helper;
-use Atmosfera\SeoFilter\Schema\IblockInstaller;
-use Atmosfera\SeoFilter\Service\DocsRenderer;
-use Atmosfera\SeoFilter\Service\LanguageConfig;
-use Atmosfera\SeoFilter\Service\SitemapService;
+use CustomAI\SeoFilter\Helper;
+use CustomAI\SeoFilter\Schema\IblockInstaller;
+use CustomAI\SeoFilter\Service\DocsRenderer;
+use CustomAI\SeoFilter\Service\LanguageConfig;
+use CustomAI\SeoFilter\Service\SitemapService;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/prolog_admin_before.php';
 Loc::loadMessages(__FILE__);
 
 if (!Loader::includeModule('seo.smart.filter')) {
-    $APPLICATION->AuthForm(Loc::getMessage('ATMOSFERA_SEOFILTER_MODULE_MISSING'));
+    $APPLICATION->AuthForm(Loc::getMessage('CUSTOMAI_SEOFILTER_MODULE_MISSING'));
 }
 
 $mid = isset($_REQUEST['mid']) ? htmlspecialcharsbx((string)$_REQUEST['mid']) : 'seo.smart.filter';
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && check_bitrix_sessid()) {
             'sitemap_file' => $result['file'],
         ];
         if (!$result['ok']) {
-            $params['action_error'] = $result['error'] ?? Loc::getMessage('ATMOSFERA_SEOFILTER_SITEMAP_ERROR');
+            $params['action_error'] = $result['error'] ?? Loc::getMessage('CUSTOMAI_SEOFILTER_SITEMAP_ERROR');
         }
         LocalRedirect($APPLICATION->GetCurPage() . '?' . http_build_query($params));
     }
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && check_bitrix_sessid()) {
             'tabControl_active_tab' => 'languages',
         ];
         if ($savedLangs === []) {
-            $params['action_error'] = Loc::getMessage('ATMOSFERA_SEOFILTER_LANG_EMPTY');
+            $params['action_error'] = Loc::getMessage('CUSTOMAI_SEOFILTER_LANG_EMPTY');
         } else {
             $sync = (new IblockInstaller())->syncLanguageDescriptionProperties($savedLangs);
             $params['langs_saved'] = 'Y';
@@ -105,7 +105,7 @@ $iblockInstaller = new IblockInstaller();
 $iblockInstaller->ensureType();
 $iblockInstaller->syncLanguageDescriptionProperties(LanguageConfig::all());
 
-$APPLICATION->SetTitle(Loc::getMessage('ATMOSFERA_SEOFILTER_OPTIONS_PAGE_TITLE'));
+$APPLICATION->SetTitle(Loc::getMessage('CUSTOMAI_SEOFILTER_OPTIONS_PAGE_TITLE'));
 require $_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/prolog_admin_after.php';
 
 $iblockId = isset($_REQUEST['iblock_id']) ? (int)$_REQUEST['iblock_id'] : 0;
@@ -129,71 +129,71 @@ $languages = LanguageConfig::all();
 $tabs = [
     [
         'DIV' => 'create_iblock',
-        'TAB' => Loc::getMessage('ATMOSFERA_SEOFILTER_OPTIONS_TAB'),
+        'TAB' => Loc::getMessage('CUSTOMAI_SEOFILTER_OPTIONS_TAB'),
         'ICON' => 'main_settings',
-        'TITLE' => Loc::getMessage('ATMOSFERA_SEOFILTER_OPTIONS_TITLE'),
+        'TITLE' => Loc::getMessage('CUSTOMAI_SEOFILTER_OPTIONS_TITLE'),
     ],
     [
         'DIV' => 'languages',
-        'TAB' => Loc::getMessage('ATMOSFERA_SEOFILTER_LANG_TAB'),
+        'TAB' => Loc::getMessage('CUSTOMAI_SEOFILTER_LANG_TAB'),
         'ICON' => 'main_settings',
-        'TITLE' => Loc::getMessage('ATMOSFERA_SEOFILTER_LANG_TITLE'),
+        'TITLE' => Loc::getMessage('CUSTOMAI_SEOFILTER_LANG_TITLE'),
     ],
     [
         'DIV' => 'migrate',
-        'TAB' => Loc::getMessage('ATMOSFERA_SEOFILTER_MIGRATE_TAB'),
+        'TAB' => Loc::getMessage('CUSTOMAI_SEOFILTER_MIGRATE_TAB'),
         'ICON' => 'main_settings',
-        'TITLE' => Loc::getMessage('ATMOSFERA_SEOFILTER_MIGRATE_TITLE'),
+        'TITLE' => Loc::getMessage('CUSTOMAI_SEOFILTER_MIGRATE_TITLE'),
     ],
     [
         'DIV' => 'sitemap',
-        'TAB' => Loc::getMessage('ATMOSFERA_SEOFILTER_SITEMAP_TAB'),
+        'TAB' => Loc::getMessage('CUSTOMAI_SEOFILTER_SITEMAP_TAB'),
         'ICON' => 'main_settings',
-        'TITLE' => Loc::getMessage('ATMOSFERA_SEOFILTER_SITEMAP_TITLE'),
+        'TITLE' => Loc::getMessage('CUSTOMAI_SEOFILTER_SITEMAP_TITLE'),
     ],
     [
         'DIV' => 'docs',
-        'TAB' => Loc::getMessage('ATMOSFERA_SEOFILTER_DOCS_TAB'),
+        'TAB' => Loc::getMessage('CUSTOMAI_SEOFILTER_DOCS_TAB'),
         'ICON' => 'main_settings',
-        'TITLE' => Loc::getMessage('ATMOSFERA_SEOFILTER_DOCS_TITLE'),
+        'TITLE' => Loc::getMessage('CUSTOMAI_SEOFILTER_DOCS_TITLE'),
     ],
 ];
 $tabControl = new CAdminTabControl('tabControl', $tabs);
 $docsHtml = DocsRenderer::readmeHtml();
 
 if ($iblockId > 0 && !$migrated) {
-    echo CAdminMessage::ShowNote(Loc::getMessage('ATMOSFERA_SEOFILTER_CREATE_OK'));
-    echo '<p><a href="/bitrix/admin/iblock_edit.php?type=atmosfera_seofilter&lang='
+    echo CAdminMessage::ShowNote(Loc::getMessage('CUSTOMAI_SEOFILTER_CREATE_OK'));
+    echo '<p><a href="/bitrix/admin/iblock_edit.php?type=customai_seofilter&lang='
         . LANGUAGE_ID . '&ID=' . $iblockId . '&admin=Y">'
-        . htmlspecialcharsbx(Loc::getMessage('ATMOSFERA_SEOFILTER_EDIT_IBLOCK'))
+        . htmlspecialcharsbx(Loc::getMessage('CUSTOMAI_SEOFILTER_EDIT_IBLOCK'))
         . '</a></p>';
 } elseif ($error) {
-    echo CAdminMessage::ShowMessage(Loc::getMessage('ATMOSFERA_SEOFILTER_CREATE_ERROR'));
+    echo CAdminMessage::ShowMessage(Loc::getMessage('CUSTOMAI_SEOFILTER_CREATE_ERROR'));
 }
 
 if ($migrated) {
-    $msg = Loc::getMessage('ATMOSFERA_SEOFILTER_MIGRATE_RESULT', [
+    $msg = Loc::getMessage('CUSTOMAI_SEOFILTER_MIGRATE_RESULT', [
         '#CREATED#' => $createdCount,
         '#SKIPPED#' => $skippedCount,
     ]);
     echo CAdminMessage::ShowNote($msg);
     if ($iblockId > 0) {
         echo '<p><a href="/bitrix/admin/iblock_element_admin.php?IBLOCK_ID=' . $iblockId
-            . '&type=atmosfera_seofilter&lang=' . LANGUAGE_ID . '&find_section_section=0">'
-            . htmlspecialcharsbx(Loc::getMessage('ATMOSFERA_SEOFILTER_OPEN_ELEMENTS'))
+            . '&type=customai_seofilter&lang=' . LANGUAGE_ID . '&find_section_section=0">'
+            . htmlspecialcharsbx(Loc::getMessage('CUSTOMAI_SEOFILTER_OPEN_ELEMENTS'))
             . '</a></p>';
     }
 }
 
 if ($sitemapDone) {
-    echo CAdminMessage::ShowNote(Loc::getMessage('ATMOSFERA_SEOFILTER_SITEMAP_RESULT', [
+    echo CAdminMessage::ShowNote(Loc::getMessage('CUSTOMAI_SEOFILTER_SITEMAP_RESULT', [
         '#COUNT#' => $sitemapCount,
         '#FILE#' => htmlspecialcharsbx($sitemapFile),
     ]));
 }
 
 if ($langsSaved) {
-    echo CAdminMessage::ShowNote(Loc::getMessage('ATMOSFERA_SEOFILTER_LANG_SAVED', [
+    echo CAdminMessage::ShowNote(Loc::getMessage('CUSTOMAI_SEOFILTER_LANG_SAVED', [
         '#CREATED#' => $langPropsCreated,
         '#IBLOCKS#' => $langIblocks,
     ]));
@@ -211,8 +211,8 @@ if ($actionError !== '') {
     ?>
     <tr>
         <td colspan="2">
-            <p><?= Loc::getMessage('ATMOSFERA_SEOFILTER_CREATE_HINT') ?></p>
-            <input type="submit" name="create_iblock" value="<?= htmlspecialcharsbx(Loc::getMessage('ATMOSFERA_SEOFILTER_CREATE_BTN')) ?>" class="adm-btn-save">
+            <p><?= Loc::getMessage('CUSTOMAI_SEOFILTER_CREATE_HINT') ?></p>
+            <input type="submit" name="create_iblock" value="<?= htmlspecialcharsbx(Loc::getMessage('CUSTOMAI_SEOFILTER_CREATE_BTN')) ?>" class="adm-btn-save">
         </td>
     </tr>
     <?php
@@ -220,12 +220,12 @@ if ($actionError !== '') {
     ?>
     <tr>
         <td colspan="2">
-            <p><?= Loc::getMessage('ATMOSFERA_SEOFILTER_LANG_HINT') ?></p>
+            <p><?= Loc::getMessage('CUSTOMAI_SEOFILTER_LANG_HINT') ?></p>
             <table class="internal atm-seo-lang-table" id="atm-seo-lang-table" style="width: auto; margin: 12px 0;">
                 <thead>
                 <tr class="heading">
-                    <td><?= htmlspecialcharsbx(Loc::getMessage('ATMOSFERA_SEOFILTER_LANG_NAME')) ?></td>
-                    <td><?= htmlspecialcharsbx(Loc::getMessage('ATMOSFERA_SEOFILTER_LANG_CODE')) ?></td>
+                    <td><?= htmlspecialcharsbx(Loc::getMessage('CUSTOMAI_SEOFILTER_LANG_NAME')) ?></td>
+                    <td><?= htmlspecialcharsbx(Loc::getMessage('CUSTOMAI_SEOFILTER_LANG_CODE')) ?></td>
                     <td></td>
                 </tr>
                 </thead>
@@ -239,15 +239,15 @@ if ($actionError !== '') {
                             <input type="text" name="lang_code[]" value="<?= htmlspecialcharsbx($langRow['code']) ?>" size="10" placeholder="ru">
                         </td>
                         <td>
-                            <button type="button" class="adm-btn atm-seo-lang-remove"><?= htmlspecialcharsbx(Loc::getMessage('ATMOSFERA_SEOFILTER_LANG_REMOVE')) ?></button>
+                            <button type="button" class="adm-btn atm-seo-lang-remove"><?= htmlspecialcharsbx(Loc::getMessage('CUSTOMAI_SEOFILTER_LANG_REMOVE')) ?></button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
             </table>
             <p>
-                <button type="button" class="adm-btn" id="atm-seo-lang-add"><?= htmlspecialcharsbx(Loc::getMessage('ATMOSFERA_SEOFILTER_LANG_ADD')) ?></button>
-                <input type="submit" name="save_languages" value="<?= htmlspecialcharsbx(Loc::getMessage('ATMOSFERA_SEOFILTER_LANG_SAVE')) ?>" class="adm-btn-save">
+                <button type="button" class="adm-btn" id="atm-seo-lang-add"><?= htmlspecialcharsbx(Loc::getMessage('CUSTOMAI_SEOFILTER_LANG_ADD')) ?></button>
+                <input type="submit" name="save_languages" value="<?= htmlspecialcharsbx(Loc::getMessage('CUSTOMAI_SEOFILTER_LANG_SAVE')) ?>" class="adm-btn-save">
             </p>
             <script>
             (function () {
@@ -271,7 +271,7 @@ if ($actionError !== '') {
                     var tr = document.createElement('tr');
                     tr.innerHTML = '<td><input type="text" name="lang_name[]" value="" size="30" placeholder="Русский"></td>'
                         + '<td><input type="text" name="lang_code[]" value="" size="10" placeholder="ru"></td>'
-                        + '<td><button type="button" class="adm-btn atm-seo-lang-remove"><?= CUtil::JSEscape(Loc::getMessage('ATMOSFERA_SEOFILTER_LANG_REMOVE')) ?></button></td>';
+                        + '<td><button type="button" class="adm-btn atm-seo-lang-remove"><?= CUtil::JSEscape(Loc::getMessage('CUSTOMAI_SEOFILTER_LANG_REMOVE')) ?></button></td>';
                     tbody.appendChild(tr);
                     bindRemove(tr.querySelector('.atm-seo-lang-remove'));
                 });
@@ -284,29 +284,29 @@ if ($actionError !== '') {
     ?>
     <tr>
         <td colspan="2">
-            <p><?= Loc::getMessage('ATMOSFERA_SEOFILTER_MIGRATE_HINT') ?></p>
-            <input type="submit" name="migrate_dwstroy" value="<?= htmlspecialcharsbx(Loc::getMessage('ATMOSFERA_SEOFILTER_MIGRATE_BTN')) ?>" class="adm-btn-save" onclick="return confirm('<?= CUtil::JSEscape(Loc::getMessage('ATMOSFERA_SEOFILTER_MIGRATE_CONFIRM')) ?>');">
+            <p><?= Loc::getMessage('CUSTOMAI_SEOFILTER_MIGRATE_HINT') ?></p>
+            <input type="submit" name="migrate_dwstroy" value="<?= htmlspecialcharsbx(Loc::getMessage('CUSTOMAI_SEOFILTER_MIGRATE_BTN')) ?>" class="adm-btn-save" onclick="return confirm('<?= CUtil::JSEscape(Loc::getMessage('CUSTOMAI_SEOFILTER_MIGRATE_CONFIRM')) ?>');">
         </td>
     </tr>
     <?php
     $tabControl->BeginNextTab();
     ?>
     <tr>
-        <td width="40%"><?= htmlspecialcharsbx(Loc::getMessage('ATMOSFERA_SEOFILTER_SITEMAP_DOMAIN')) ?></td>
+        <td width="40%"><?= htmlspecialcharsbx(Loc::getMessage('CUSTOMAI_SEOFILTER_SITEMAP_DOMAIN')) ?></td>
         <td width="60%">
             <input type="text" name="sitemap_domain" value="<?= htmlspecialcharsbx($sitemapDomain) ?>" size="50">
         </td>
     </tr>
     <tr>
-        <td><?= htmlspecialcharsbx(Loc::getMessage('ATMOSFERA_SEOFILTER_SITEMAP_FILENAME')) ?></td>
+        <td><?= htmlspecialcharsbx(Loc::getMessage('CUSTOMAI_SEOFILTER_SITEMAP_FILENAME')) ?></td>
         <td>
             <input type="text" name="sitemap_filename" value="<?= htmlspecialcharsbx($sitemapFilename) ?>" size="50">
         </td>
     </tr>
     <tr>
         <td colspan="2">
-            <p><?= Loc::getMessage('ATMOSFERA_SEOFILTER_SITEMAP_HINT') ?></p>
-            <input type="submit" name="generate_sitemap" value="<?= htmlspecialcharsbx(Loc::getMessage('ATMOSFERA_SEOFILTER_SITEMAP_BTN')) ?>" class="adm-btn-save">
+            <p><?= Loc::getMessage('CUSTOMAI_SEOFILTER_SITEMAP_HINT') ?></p>
+            <input type="submit" name="generate_sitemap" value="<?= htmlspecialcharsbx(Loc::getMessage('CUSTOMAI_SEOFILTER_SITEMAP_BTN')) ?>" class="adm-btn-save">
         </td>
     </tr>
     <?php
@@ -314,7 +314,7 @@ if ($actionError !== '') {
     ?>
     <tr>
         <td colspan="2">
-            <p class="atm-seo-docs-source"><?= htmlspecialcharsbx(Loc::getMessage('ATMOSFERA_SEOFILTER_DOCS_SOURCE')) ?></p>
+            <p class="atm-seo-docs-source"><?= htmlspecialcharsbx(Loc::getMessage('CUSTOMAI_SEOFILTER_DOCS_SOURCE')) ?></p>
             <div class="atm-seo-docs"><?= $docsHtml ?></div>
         </td>
     </tr>

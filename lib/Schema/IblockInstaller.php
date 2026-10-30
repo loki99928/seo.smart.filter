@@ -1,8 +1,8 @@
 <?php
 
-namespace Atmosfera\SeoFilter\Schema;
+namespace CustomAI\SeoFilter\Schema;
 
-use Atmosfera\SeoFilter\Service\LanguageConfig;
+use CustomAI\SeoFilter\Service\LanguageConfig;
 use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\SiteTable;
@@ -10,7 +10,7 @@ use Bitrix\Main\Type\DateTime;
 
 final class IblockInstaller
 {
-    public const TYPE_ID = 'atmosfera_seofilter';
+    public const TYPE_ID = 'customai_seofilter';
 
     private static function loadLang(): void
     {
@@ -24,12 +24,12 @@ final class IblockInstaller
             return false;
         }
 
-        $typeName = Loc::getMessage('ATMOSFERA_SEOFILTER_IBLOCK_TYPE_NAME') ?: 'SEO умного фильтра';
+        $typeName = Loc::getMessage('CUSTOMAI_SEOFILTER_IBLOCK_TYPE_NAME') ?: 'SEO умного фильтра';
         $lang = [
             'ru' => [
                 'NAME' => $typeName,
-                'SECTION_NAME' => Loc::getMessage('ATMOSFERA_SEOFILTER_IBLOCK_TYPE_SECTION') ?: 'Раздел',
-                'ELEMENT_NAME' => Loc::getMessage('ATMOSFERA_SEOFILTER_IBLOCK_TYPE_ELEMENT') ?: 'Правило',
+                'SECTION_NAME' => Loc::getMessage('CUSTOMAI_SEOFILTER_IBLOCK_TYPE_SECTION') ?: 'Раздел',
+                'ELEMENT_NAME' => Loc::getMessage('CUSTOMAI_SEOFILTER_IBLOCK_TYPE_ELEMENT') ?: 'Правило',
             ],
         ];
 
@@ -91,15 +91,15 @@ final class IblockInstaller
         $codeSuffix = '';
         if ($withTimestamp) {
             $d = new DateTime();
-            $stamp = (Loc::getMessage('ATMOSFERA_SEOFILTER_CREATED_AT') ?: '. Создан ') . $d->format('d.m.Y H:i:s');
+            $stamp = (Loc::getMessage('CUSTOMAI_SEOFILTER_CREATED_AT') ?: '. Создан ') . $d->format('d.m.Y H:i:s');
             $codeSuffix = '_' . $d->format('d_m_Y_H_i_s');
         }
 
         $iblock = new \CIBlock();
         $iblockId = (int)$iblock->Add([
             'ACTIVE' => 'Y',
-            'NAME' => (Loc::getMessage('ATMOSFERA_SEOFILTER_IBLOCK_NAME') ?: 'ЧПУ умного фильтра') . $stamp,
-            'CODE' => (Loc::getMessage('ATMOSFERA_SEOFILTER_IBLOCK_CODE') ?: 'atmosfera_seofilter_rules') . $codeSuffix,
+            'NAME' => (Loc::getMessage('CUSTOMAI_SEOFILTER_IBLOCK_NAME') ?: 'ЧПУ умного фильтра') . $stamp,
+            'CODE' => (Loc::getMessage('CUSTOMAI_SEOFILTER_IBLOCK_CODE') ?: 'customai_seofilter_rules') . $codeSuffix,
             'SORT' => 10,
             'LIST_PAGE_URL' => '',
             'DETAIL_PAGE_URL' => '#ELEMENT_CODE#',
@@ -137,21 +137,21 @@ final class IblockInstaller
     {
         $defs = [
             [
-                'NAME' => Loc::getMessage('ATMOSFERA_SEOFILTER_PROP_OLD_URL'),
+                'NAME' => Loc::getMessage('CUSTOMAI_SEOFILTER_PROP_OLD_URL'),
                 'CODE' => 'OLD_URL',
                 'PROPERTY_TYPE' => 'S',
                 'IS_REQUIRED' => 'Y',
                 'SORT' => 10,
             ],
             [
-                'NAME' => Loc::getMessage('ATMOSFERA_SEOFILTER_PROP_NEW_URL'),
+                'NAME' => Loc::getMessage('CUSTOMAI_SEOFILTER_PROP_NEW_URL'),
                 'CODE' => 'NEW_URL',
                 'PROPERTY_TYPE' => 'S',
                 'IS_REQUIRED' => 'Y',
                 'SORT' => 20,
             ],
             [
-                'NAME' => Loc::getMessage('ATMOSFERA_SEOFILTER_PROP_REDIRECT'),
+                'NAME' => Loc::getMessage('CUSTOMAI_SEOFILTER_PROP_REDIRECT'),
                 'CODE' => 'REDIRECT',
                 'PROPERTY_TYPE' => 'L',
                 'SORT' => 22,
@@ -161,38 +161,38 @@ final class IblockInstaller
                 ],
             ],
             [
-                'NAME' => Loc::getMessage('ATMOSFERA_SEOFILTER_PROP_ROBOTS'),
+                'NAME' => Loc::getMessage('CUSTOMAI_SEOFILTER_PROP_ROBOTS'),
                 'CODE' => 'ROBOTS',
                 'PROPERTY_TYPE' => 'L',
                 'LIST_TYPE' => 'L',
                 'SORT' => 23,
                 'VALUES' => [
                     [
-                        'VALUE' => Loc::getMessage('ATMOSFERA_SEOFILTER_ROBOTS_INDEX_FOLLOW'),
+                        'VALUE' => Loc::getMessage('CUSTOMAI_SEOFILTER_ROBOTS_INDEX_FOLLOW'),
                         'DEF' => 'Y',
                         'SORT' => 10,
                         'XML_ID' => 'index_follow',
                     ],
                     [
-                        'VALUE' => Loc::getMessage('ATMOSFERA_SEOFILTER_ROBOTS_NOINDEX_FOLLOW'),
+                        'VALUE' => Loc::getMessage('CUSTOMAI_SEOFILTER_ROBOTS_NOINDEX_FOLLOW'),
                         'DEF' => 'N',
                         'SORT' => 20,
                         'XML_ID' => 'noindex_follow',
                     ],
                     [
-                        'VALUE' => Loc::getMessage('ATMOSFERA_SEOFILTER_ROBOTS_NOINDEX_NOFOLLOW'),
+                        'VALUE' => Loc::getMessage('CUSTOMAI_SEOFILTER_ROBOTS_NOINDEX_NOFOLLOW'),
                         'DEF' => 'N',
                         'SORT' => 30,
                         'XML_ID' => 'noindex_nofollow',
                     ],
                     [
-                        'VALUE' => Loc::getMessage('ATMOSFERA_SEOFILTER_ROBOTS_INDEX'),
+                        'VALUE' => Loc::getMessage('CUSTOMAI_SEOFILTER_ROBOTS_INDEX'),
                         'DEF' => 'N',
                         'SORT' => 40,
                         'XML_ID' => 'index',
                     ],
                     [
-                        'VALUE' => Loc::getMessage('ATMOSFERA_SEOFILTER_ROBOTS_FOLLOW'),
+                        'VALUE' => Loc::getMessage('CUSTOMAI_SEOFILTER_ROBOTS_FOLLOW'),
                         'DEF' => 'N',
                         'SORT' => 50,
                         'XML_ID' => 'follow',
@@ -200,21 +200,21 @@ final class IblockInstaller
                 ],
             ],
             [
-                'NAME' => Loc::getMessage('ATMOSFERA_SEOFILTER_PROP_OTHER_URLS'),
+                'NAME' => Loc::getMessage('CUSTOMAI_SEOFILTER_PROP_OTHER_URLS'),
                 'CODE' => 'OTHER_URLS',
                 'PROPERTY_TYPE' => 'S',
                 'MULTIPLE' => 'Y',
                 'SORT' => 27,
             ],
             [
-                'NAME' => Loc::getMessage('ATMOSFERA_SEOFILTER_PROP_ADD_TO_SITEMAP'),
+                'NAME' => Loc::getMessage('CUSTOMAI_SEOFILTER_PROP_ADD_TO_SITEMAP'),
                 'CODE' => 'ADD_TO_SITEMAP',
                 'PROPERTY_TYPE' => 'L',
                 'LIST_TYPE' => 'C',
                 'SORT' => 30,
                 'VALUES' => [
                     [
-                        'VALUE' => Loc::getMessage('ATMOSFERA_SEOFILTER_YES') ?: 'Да',
+                        'VALUE' => Loc::getMessage('CUSTOMAI_SEOFILTER_YES') ?: 'Да',
                         'DEF' => 'Y',
                         'SORT' => 10,
                         'XML_ID' => 'Y',
@@ -222,14 +222,14 @@ final class IblockInstaller
                 ],
             ],
             [
-                'NAME' => Loc::getMessage('ATMOSFERA_SEOFILTER_PROP_SEARCH_INDEX'),
+                'NAME' => Loc::getMessage('CUSTOMAI_SEOFILTER_PROP_SEARCH_INDEX'),
                 'CODE' => 'SEARCH_INDEX',
                 'PROPERTY_TYPE' => 'L',
                 'LIST_TYPE' => 'C',
                 'SORT' => 33,
                 'VALUES' => [
                     [
-                        'VALUE' => Loc::getMessage('ATMOSFERA_SEOFILTER_YES') ?: 'Да',
+                        'VALUE' => Loc::getMessage('CUSTOMAI_SEOFILTER_YES') ?: 'Да',
                         'DEF' => 'Y',
                         'SORT' => 10,
                         'XML_ID' => 'Y',
@@ -237,14 +237,14 @@ final class IblockInstaller
                 ],
             ],
             [
-                'NAME' => Loc::getMessage('ATMOSFERA_SEOFILTER_PROP_ADD_TO_CHAIN'),
+                'NAME' => Loc::getMessage('CUSTOMAI_SEOFILTER_PROP_ADD_TO_CHAIN'),
                 'CODE' => 'ADD_TO_CHAIN',
                 'PROPERTY_TYPE' => 'L',
                 'LIST_TYPE' => 'C',
                 'SORT' => 35,
                 'VALUES' => [
                     [
-                        'VALUE' => Loc::getMessage('ATMOSFERA_SEOFILTER_YES') ?: 'Да',
+                        'VALUE' => Loc::getMessage('CUSTOMAI_SEOFILTER_YES') ?: 'Да',
                         'DEF' => 'Y',
                         'SORT' => 10,
                         'XML_ID' => 'Y',
@@ -252,7 +252,7 @@ final class IblockInstaller
                 ],
             ],
             [
-                'NAME' => Loc::getMessage('ATMOSFERA_SEOFILTER_PROP_PARENT_CHAIN'),
+                'NAME' => Loc::getMessage('CUSTOMAI_SEOFILTER_PROP_PARENT_CHAIN'),
                 'CODE' => 'PARENT_BREADCRUMB_ITEM',
                 'PROPERTY_TYPE' => 'E',
                 'USER_TYPE' => 'EAutocomplete',
@@ -260,28 +260,28 @@ final class IblockInstaller
                 'SORT' => 40,
             ],
             [
-                'NAME' => Loc::getMessage('ATMOSFERA_SEOFILTER_PROP_SEO_H1'),
+                'NAME' => Loc::getMessage('CUSTOMAI_SEOFILTER_PROP_SEO_H1'),
                 'CODE' => 'SEO_H1',
                 'PROPERTY_TYPE' => 'S',
                 'USER_TYPE' => 'HTML',
                 'SORT' => 70,
             ],
             [
-                'NAME' => Loc::getMessage('ATMOSFERA_SEOFILTER_PROP_SEO_TITLE'),
+                'NAME' => Loc::getMessage('CUSTOMAI_SEOFILTER_PROP_SEO_TITLE'),
                 'CODE' => 'SEO_TITLE',
                 'PROPERTY_TYPE' => 'S',
                 'USER_TYPE' => 'HTML',
                 'SORT' => 80,
             ],
             [
-                'NAME' => Loc::getMessage('ATMOSFERA_SEOFILTER_PROP_SEO_KEYWORDS'),
+                'NAME' => Loc::getMessage('CUSTOMAI_SEOFILTER_PROP_SEO_KEYWORDS'),
                 'CODE' => 'SEO_KEYWORDS',
                 'PROPERTY_TYPE' => 'S',
                 'USER_TYPE' => 'HTML',
                 'SORT' => 90,
             ],
             [
-                'NAME' => Loc::getMessage('ATMOSFERA_SEOFILTER_PROP_SEO_DESCRIPTION'),
+                'NAME' => Loc::getMessage('CUSTOMAI_SEOFILTER_PROP_SEO_DESCRIPTION'),
                 'CODE' => 'SEO_DESCRIPTION',
                 'PROPERTY_TYPE' => 'S',
                 'USER_TYPE' => 'HTML',
@@ -343,12 +343,12 @@ final class IblockInstaller
         }
 
         $fieldLabels = [
-            'h1' => Loc::getMessage('ATMOSFERA_SEOFILTER_PROP_SEO_H1') ?: 'SEO: H1',
-            'title' => Loc::getMessage('ATMOSFERA_SEOFILTER_PROP_SEO_TITLE') ?: 'SEO: Title',
-            'keywords' => Loc::getMessage('ATMOSFERA_SEOFILTER_PROP_SEO_KEYWORDS') ?: 'SEO: Keywords',
-            'description' => Loc::getMessage('ATMOSFERA_SEOFILTER_PROP_SEO_DESCRIPTION') ?: 'SEO: Description',
-            'top' => Loc::getMessage('ATMOSFERA_SEOFILTER_PROP_DESC_TOP_LANG') ?: 'SEO: описание сверху',
-            'bottom' => Loc::getMessage('ATMOSFERA_SEOFILTER_PROP_DESC_BOTTOM_LANG') ?: 'SEO: описание снизу',
+            'h1' => Loc::getMessage('CUSTOMAI_SEOFILTER_PROP_SEO_H1') ?: 'SEO: H1',
+            'title' => Loc::getMessage('CUSTOMAI_SEOFILTER_PROP_SEO_TITLE') ?: 'SEO: Title',
+            'keywords' => Loc::getMessage('CUSTOMAI_SEOFILTER_PROP_SEO_KEYWORDS') ?: 'SEO: Keywords',
+            'description' => Loc::getMessage('CUSTOMAI_SEOFILTER_PROP_SEO_DESCRIPTION') ?: 'SEO: Description',
+            'top' => Loc::getMessage('CUSTOMAI_SEOFILTER_PROP_DESC_TOP_LANG') ?: 'SEO: описание сверху',
+            'bottom' => Loc::getMessage('CUSTOMAI_SEOFILTER_PROP_DESC_BOTTOM_LANG') ?: 'SEO: описание снизу',
         ];
 
         $created = 0;
@@ -422,17 +422,17 @@ final class IblockInstaller
         // getTabsArray() never split language tabs, so everything stayed on «Правило».
         $arTabs = [
             'edit1' => [
-                'TAB' => Loc::getMessage('ATMOSFERA_SEOFILTER_ELEMENT') ?: 'Правило',
+                'TAB' => Loc::getMessage('CUSTOMAI_SEOFILTER_ELEMENT') ?: 'Правило',
                 'FIELDS' => [
                     'ID' => 'ID',
-                    'DATE_CREATE' => Loc::getMessage('ATMOSFERA_SEOFILTER_DATE_CREATE') ?: 'Создан',
-                    'TIMESTAMP_X' => Loc::getMessage('ATMOSFERA_SEOFILTER_TIMESTAMP_X') ?: 'Изменён',
-                    'ACTIVE' => Loc::getMessage('ATMOSFERA_SEOFILTER_ACTIVE') ?: 'Активность',
-                    'ACTIVE_FROM' => Loc::getMessage('ATMOSFERA_SEOFILTER_ACTIVE_FROM') ?: 'Начало активности',
-                    'ACTIVE_TO' => Loc::getMessage('ATMOSFERA_SEOFILTER_ACTIVE_TO') ?: 'Окончание активности',
-                    'NAME' => '*' . (Loc::getMessage('ATMOSFERA_SEOFILTER_NAME') ?: 'Название'),
-                    'CODE' => Loc::getMessage('ATMOSFERA_SEOFILTER_CODE') ?: 'Символьный код',
-                    'SORT' => Loc::getMessage('ATMOSFERA_SEOFILTER_SORT') ?: 'Сортировка',
+                    'DATE_CREATE' => Loc::getMessage('CUSTOMAI_SEOFILTER_DATE_CREATE') ?: 'Создан',
+                    'TIMESTAMP_X' => Loc::getMessage('CUSTOMAI_SEOFILTER_TIMESTAMP_X') ?: 'Изменён',
+                    'ACTIVE' => Loc::getMessage('CUSTOMAI_SEOFILTER_ACTIVE') ?: 'Активность',
+                    'ACTIVE_FROM' => Loc::getMessage('CUSTOMAI_SEOFILTER_ACTIVE_FROM') ?: 'Начало активности',
+                    'ACTIVE_TO' => Loc::getMessage('CUSTOMAI_SEOFILTER_ACTIVE_TO') ?: 'Окончание активности',
+                    'NAME' => '*' . (Loc::getMessage('CUSTOMAI_SEOFILTER_NAME') ?: 'Название'),
+                    'CODE' => Loc::getMessage('CUSTOMAI_SEOFILTER_CODE') ?: 'Символьный код',
+                    'SORT' => Loc::getMessage('CUSTOMAI_SEOFILTER_SORT') ?: 'Сортировка',
                 ],
             ],
         ];

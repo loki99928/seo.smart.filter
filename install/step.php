@@ -10,9 +10,9 @@ if (!check_bitrix_sessid()) {
 
 Loc::loadMessages(__DIR__ . '/index.php');
 
-echo \CAdminMessage::ShowNote(Loc::getMessage('ATMOSFERA_SEOFILTER_INSTALL_OK'));
+echo \CAdminMessage::ShowNote(Loc::getMessage('CUSTOMAI_SEOFILTER_INSTALL_OK'));
 ?>
 <form action="<?= htmlspecialcharsbx($APPLICATION->GetCurPage()) ?>">
     <input type="hidden" name="lang" value="<?= LANGUAGE_ID ?>">
-    <input type="submit" name="" value="<?= htmlspecialcharsbx(Loc::getMessage('ATMOSFERA_SEOFILTER_MOD_BACK')) ?>">
+    <input type="submit" name="" value="<?= htmlspecialcharsbx(Loc::getMessage('CUSTOMAI_SEOFILTER_MOD_BACK')) ?>">
 </form>

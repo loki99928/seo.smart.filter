@@ -1,12 +1,12 @@
 <?php
 
-namespace Atmosfera\SeoFilter\Repository;
+namespace CustomAI\SeoFilter\Repository;
 
-use Atmosfera\SeoFilter\Dto\SeoRule;
-use Atmosfera\SeoFilter\Schema\IblockInstaller;
-use Atmosfera\SeoFilter\Service\LanguageConfig;
-use Atmosfera\SeoFilter\Service\Sanitizer;
-use Atmosfera\SeoFilter\Service\UrlNormalizer;
+use CustomAI\SeoFilter\Dto\SeoRule;
+use CustomAI\SeoFilter\Schema\IblockInstaller;
+use CustomAI\SeoFilter\Service\LanguageConfig;
+use CustomAI\SeoFilter\Service\Sanitizer;
+use CustomAI\SeoFilter\Service\UrlNormalizer;
 use Bitrix\Main\Loader;
 
 final class RuleRepository

@@ -1,14 +1,14 @@
 <?php
 
-namespace Atmosfera\SeoFilter;
+namespace CustomAI\SeoFilter;
 
-use Atmosfera\SeoFilter\Repository\RuleRepository;
-use Atmosfera\SeoFilter\Schema\IblockInstaller;
-use Atmosfera\SeoFilter\Service\RedirectService;
-use Atmosfera\SeoFilter\Service\RequestGuard;
-use Atmosfera\SeoFilter\Service\Sanitizer;
-use Atmosfera\SeoFilter\Service\SeoApplicator;
-use Atmosfera\SeoFilter\Service\UrlRewriter;
+use CustomAI\SeoFilter\Repository\RuleRepository;
+use CustomAI\SeoFilter\Schema\IblockInstaller;
+use CustomAI\SeoFilter\Service\RedirectService;
+use CustomAI\SeoFilter\Service\RequestGuard;
+use CustomAI\SeoFilter\Service\Sanitizer;
+use CustomAI\SeoFilter\Service\SeoApplicator;
+use CustomAI\SeoFilter\Service\UrlRewriter;
 use Bitrix\Iblock\IblockTable;
 use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
@@ -29,8 +29,8 @@ final class Events
 
         Loc::loadMessages(__FILE__);
 
-        $text = Loc::getMessage('ATMOSFERA_SEOFILTER_MENU_TEXT') ?: 'SEO умного фильтра';
-        $title = Loc::getMessage('ATMOSFERA_SEOFILTER_MENU_TITLE')
+        $text = Loc::getMessage('CUSTOMAI_SEOFILTER_MENU_TEXT') ?: 'SEO умного фильтра';
+        $title = Loc::getMessage('CUSTOMAI_SEOFILTER_MENU_TITLE')
             ?: 'ЧПУ, мета-теги и SEO-тексты умного фильтра';
 
         $settingsUrl = 'settings.php?lang=' . LANGUAGE_ID . '&mid=seo.smart.filter';
@@ -52,7 +52,7 @@ final class Events
                 if ($url === $settingsUrl) {
                     $url = $listUrl;
                 }
-                $label = Loc::getMessage('ATMOSFERA_SEOFILTER_MENU_RULES') ?: 'Правила ЧПУ';
+                $label = Loc::getMessage('CUSTOMAI_SEOFILTER_MENU_RULES') ?: 'Правила ЧПУ';
                 if ($many && Loader::includeModule('iblock')) {
                     $ib = \CIBlock::GetByID($iblockId)->Fetch();
                     if (!empty($ib['NAME'])) {
@@ -72,8 +72,8 @@ final class Events
         }
 
         $items[] = [
-            'text' => Loc::getMessage('ATMOSFERA_SEOFILTER_MENU_SETTINGS') ?: 'Настройки',
-            'title' => Loc::getMessage('ATMOSFERA_SEOFILTER_MENU_SETTINGS') ?: 'Настройки',
+            'text' => Loc::getMessage('CUSTOMAI_SEOFILTER_MENU_SETTINGS') ?: 'Настройки',
+            'title' => Loc::getMessage('CUSTOMAI_SEOFILTER_MENU_SETTINGS') ?: 'Настройки',
             'url' => $settingsUrl,
             'more_url' => ['settings.php?mid=seo.smart.filter'],
         ];

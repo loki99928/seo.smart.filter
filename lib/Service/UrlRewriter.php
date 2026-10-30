@@ -1,9 +1,9 @@
 <?php
 
-namespace Atmosfera\SeoFilter\Service;
+namespace CustomAI\SeoFilter\Service;
 
-use Atmosfera\SeoFilter\Dto\SeoRule;
-use Atmosfera\SeoFilter\Repository\RuleRepository;
+use CustomAI\SeoFilter\Dto\SeoRule;
+use CustomAI\SeoFilter\Repository\RuleRepository;
 use Bitrix\Main\Context;
 use Bitrix\Main\HttpRequest;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Atmosfera\SeoFilter\Service;
+namespace CustomAI\SeoFilter\Service;
 
 use Bitrix\Main\Config\Option;
 

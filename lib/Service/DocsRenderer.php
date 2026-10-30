@@ -1,6 +1,6 @@
 <?php
 
-namespace Atmosfera\SeoFilter\Service;
+namespace CustomAI\SeoFilter\Service;
 
 /**
  * Minimal Markdown → HTML for README in module settings (no external deps).

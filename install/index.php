@@ -28,10 +28,10 @@ class seo_smart_filter extends CModule
 
         $this->MODULE_VERSION = $arModuleVersion['VERSION'];
         $this->MODULE_VERSION_DATE = $arModuleVersion['VERSION_DATE'];
-        $this->MODULE_NAME = Loc::getMessage('ATMOSFERA_SEOFILTER_MODULE_NAME');
-        $this->MODULE_DESCRIPTION = Loc::getMessage('ATMOSFERA_SEOFILTER_MODULE_DESC');
-        $this->PARTNER_NAME = Loc::getMessage('ATMOSFERA_SEOFILTER_PARTNER_NAME');
-        $this->PARTNER_URI = Loc::getMessage('ATMOSFERA_SEOFILTER_PARTNER_URI');
+        $this->MODULE_NAME = Loc::getMessage('CUSTOMAI_SEOFILTER_MODULE_NAME');
+        $this->MODULE_DESCRIPTION = Loc::getMessage('CUSTOMAI_SEOFILTER_MODULE_DESC');
+        $this->PARTNER_NAME = Loc::getMessage('CUSTOMAI_SEOFILTER_PARTNER_NAME');
+        $this->PARTNER_URI = Loc::getMessage('CUSTOMAI_SEOFILTER_PARTNER_URI');
     }
 
     public function DoInstall()
@@ -44,7 +44,7 @@ class seo_smart_filter extends CModule
         $this->InstallAgents();
 
         $APPLICATION->IncludeAdminFile(
-            Loc::getMessage('ATMOSFERA_SEOFILTER_INSTALL_TITLE'),
+            Loc::getMessage('CUSTOMAI_SEOFILTER_INSTALL_TITLE'),
             __DIR__ . '/step.php'
         );
 
@@ -58,7 +58,7 @@ class seo_smart_filter extends CModule
         $step = (int)$step;
         if ($step < 2) {
             $APPLICATION->IncludeAdminFile(
-                Loc::getMessage('ATMOSFERA_SEOFILTER_UNINSTALL_TITLE'),
+                Loc::getMessage('CUSTOMAI_SEOFILTER_UNINSTALL_TITLE'),
                 __DIR__ . '/unstep.php'
             );
 
@@ -73,7 +73,7 @@ class seo_smart_filter extends CModule
         ModuleManager::unRegisterModule(self::MODULE_ID);
 
         $APPLICATION->IncludeAdminFile(
-            Loc::getMessage('ATMOSFERA_SEOFILTER_UNINSTALL_TITLE'),
+            Loc::getMessage('CUSTOMAI_SEOFILTER_UNINSTALL_TITLE'),
             __DIR__ . '/unstep.php'
         );
 
@@ -83,7 +83,7 @@ class seo_smart_filter extends CModule
     public function InstallEvents()
     {
         $em = EventManager::getInstance();
-        $class = '\\Atmosfera\\SeoFilter\\Events';
+        $class = '\\CustomAI\\SeoFilter\\Events';
 
         $em->registerEventHandler('main', 'OnBeforeProlog', self::MODULE_ID, $class, 'onBeforeProlog', 50);
         $em->registerEventHandler('main', 'OnEpilog', self::MODULE_ID, $class, 'onEpilog', 50);
@@ -101,7 +101,7 @@ class seo_smart_filter extends CModule
     public function UnInstallEvents()
     {
         $em = EventManager::getInstance();
-        $class = '\\Atmosfera\\SeoFilter\\Events';
+        $class = '\\CustomAI\\SeoFilter\\Events';
 
         $em->unRegisterEventHandler('main', 'OnBeforeProlog', self::MODULE_ID, $class, 'onBeforeProlog');
         $em->unRegisterEventHandler('main', 'OnProlog', self::MODULE_ID, $class, 'onProlog');
@@ -121,7 +121,7 @@ class seo_smart_filter extends CModule
     public function InstallAgents()
     {
         \CAgent::AddAgent(
-            '\\Atmosfera\\SeoFilter\\Service\\SitemapService::agentGenerate();',
+            '\\CustomAI\\SeoFilter\\Service\\SitemapService::agentGenerate();',
             self::MODULE_ID,
             'N',
             86400,
@@ -147,7 +147,7 @@ class seo_smart_filter extends CModule
             return false;
         }
 
-        $installer = new \Atmosfera\SeoFilter\Schema\IblockInstaller();
+        $installer = new \CustomAI\SeoFilter\Schema\IblockInstaller();
         $installer->ensureType();
         if (!$installer->hasIblocks()) {
             $installer->createIblock();
@@ -167,7 +167,7 @@ class seo_smart_filter extends CModule
         }
 
         Loader::includeModule(self::MODULE_ID);
-        $typeId = 'atmosfera_seofilter';
+        $typeId = 'customai_seofilter';
         $res = \Bitrix\Iblock\IblockTable::getList([
             'filter' => ['=IBLOCK_TYPE_ID' => $typeId],
             'select' => ['ID'],
